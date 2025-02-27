@@ -44,7 +44,7 @@
 <script setup lang="ts">
   import AddLang from "./AddLang.vue";
   import NativeLang from "./NativeLang.vue";
-
+  translateIfNeeded()
   const is = inject<Ref<Component>>("is")!;
   const onNativeChange = () => {
     is.value = NativeLang;

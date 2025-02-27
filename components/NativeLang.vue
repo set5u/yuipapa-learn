@@ -1,4 +1,9 @@
 <template>
+  <div class="text-start" v-if="native">
+    <button class="btn btn-outline-primary m-4" @click="is = Home">
+      {{ alter.back || lang.back }}
+    </button>
+  </div>
   <div class="my-4 h1">
     {{ alter.tell_native || lang.tell_native }}
   </div>
