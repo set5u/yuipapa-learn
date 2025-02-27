@@ -23,6 +23,7 @@ export const lang = {
   prev_page: "Previous page",
   add_word: "Add word",
   add_word_about: "Add word relating to",
+  generating: "Generating words list...",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")

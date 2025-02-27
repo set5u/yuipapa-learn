@@ -2,6 +2,7 @@
   <div class="my-4 h1">
     {{ alter.home || lang.home }}
   </div>
+  <div v-if="error">{{ alter.error || lang.error }}</div>
   <div class="my-4">
     {{
       alter.your_native?.replace("{}", `${nativeNameInLang}`) ||

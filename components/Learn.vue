@@ -1,4 +1,8 @@
 <template>
+  <div v-if="error">{{ alter.error || lang.error }}</div>
+  <div v-if="generating">
+    {{ alter.generating || lang.generating }}
+  </div>
   <div>
     {{ selectedLang }}
     {{ wordList }}
