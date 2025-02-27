@@ -24,6 +24,7 @@ export const lang = {
   add_word: "Add word",
   add_word_about: "Add word relating to",
   generating: "Generating words list...",
+  transA2B: "Translate the text below from {A} to {B}.",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")

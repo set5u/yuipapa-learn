@@ -1,5 +1,5 @@
 <template>
-  <div class="my-4 h1">
+  <div class="h1">
     {{ alter.home || lang.home }}
   </div>
   <div v-if="error">{{ alter.error || lang.error }}</div>

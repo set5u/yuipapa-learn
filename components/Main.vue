@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center">
+  <div class="container text-center my-4">
     <component :is></component>
   </div>
 </template>
