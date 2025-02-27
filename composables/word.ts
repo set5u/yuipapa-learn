@@ -9,7 +9,7 @@ watch(wordList, () => {
 
 export const addWord = (w: string, l: string) => {
   if (wordList.find((v) => v[0] === w)) return;
-  wordList.push([w, l, {}]);
+  wordList.unshift([w, l, {}]);
 };
 
 /**

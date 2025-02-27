@@ -29,7 +29,7 @@
     </div>
     <div class="my-4">
       <button
-        class="btn btn-outline-primary mx-2"
+        class="btn btn-outline-primary m-2"
         @click="addWordAbout"
         :disabled="generating"
       >
