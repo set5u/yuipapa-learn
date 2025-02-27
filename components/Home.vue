@@ -22,6 +22,22 @@
       </button>
     </div>
   </div>
+  <div>
+    <div class="my-4 h4">
+      {{ alter.word_list || lang.word_list }}
+    </div>
+    <div class="my-4">
+      <button
+        class="btn btn-outline-primary mx-2"
+        @click="addWordAbout"
+        :disabled="generating"
+      >
+        {{ alter.add_word_about || lang.add_word_about }}
+      </button>
+      <input v-model="word" />
+    </div>
+    <WordList></WordList>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -34,5 +50,25 @@
   };
   const addLang = () => {
     is.value = AddLang;
+  };
+  const word = ref("");
+  const generating = ref(false);
+  const error = ref(false);
+  const addWordAbout = async () => {
+    if (!word.value.length) {
+      return;
+    }
+    generating.value = true;
+    try {
+      await genBasic(
+        native.value,
+        nativeNameInLang.value,
+        (alter.gen_about || lang.gen_about).replace("{0}", word.value)
+      );
+      word.value = "";
+      generating.value = false;
+    } catch {
+      error.value = true;
+    }
   };
 </script>

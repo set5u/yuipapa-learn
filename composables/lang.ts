@@ -17,6 +17,12 @@ export const lang = {
   delete: "Delete",
   learn: "Learn!",
   gen_basic: "Please generate 100 basic {} words.",
+  gen_about: "Please generate 100 {} words relating to {0}.",
+  word_list: "Word list",
+  next_page: "Next page",
+  prev_page: "Previous page",
+  add_word: "Add word",
+  add_word_about: "Add word relating to",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")
