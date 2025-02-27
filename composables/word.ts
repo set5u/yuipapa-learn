@@ -32,3 +32,41 @@ export const genBasic = async (l: string, n: string, p?: string) => {
     addWord(w, l);
   }
 };
+
+export const createSentence = async (words: string[]) => {
+  const model = getGenerativeModel(vertexAI, {
+    model: "gemini-2.0-flash",
+    generationConfig: {
+      responseSchema: Schema.string(),
+      responseMimeType: "application/json",
+    },
+  });
+  const prompt = (alter.createSentence || lang.createSentence) + "\n" + words;
+  const result = await model.generateContentStream(prompt);
+  const response = await result.response;
+  const json = JSON.parse(response.text()) as string;
+  return json;
+};
+
+export const translateSentence = async (
+  sentence: string,
+  src: string,
+  dst: string
+) => {
+  const model = getGenerativeModel(vertexAI, {
+    model: "gemini-2.0-flash",
+    generationConfig: {
+      responseSchema: Schema.string(),
+      responseMimeType: "application/json",
+      temperature: 0,
+    },
+  });
+  const prompt =
+    (alter.transA2B || lang.transA2B).replace("{A}", src).replace("{B}", dst) +
+    "\n" +
+    sentence;
+  const result = await model.generateContentStream(prompt);
+  const response = await result.response;
+  const json = JSON.parse(response.text()) as string;
+  return json;
+};

@@ -26,6 +26,10 @@ export const lang = {
   generating: "Generating words list...",
   transA2B: "Translate the text below from {A} to {B}.",
   back: "Back",
+  createSentence: "Make a sentence using all the words below:",
+  generatingSentence: "Generating sentence...",
+  answer: "Answer:",
+  considering: "Considering...",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")
@@ -53,7 +57,8 @@ watch(nativeNameInLang, () => {
 export const translateIfNeeded = async () => {
   for (const la in lang) {
     if (!(la in alter)) {
-      translate(native.value, nativeName.value);
+      await translate(native.value, nativeName.value);
+      return;
     }
   }
 };

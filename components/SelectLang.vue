@@ -4,6 +4,7 @@
     v-model="name"
     :placeholder="alter.any_text_here || lang.any_text_here"
     :disabled
+    @keyup.enter="onClick"
   />
   <div v-if="error" class="my-4">{{ alter.error || lang.error }}</div>
   <button class="btn btn-outline-primary" :onClick :disabled>
