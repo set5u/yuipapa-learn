@@ -34,3 +34,9 @@ const appCheck = initializeAppCheck(app, {
   isTokenAutoRefreshEnabled: true,
 });
 export { appCheck };
+
+import { getVertexAI } from "firebase/vertexai";
+// Initialize the Vertex AI service
+const vertexAI = getVertexAI(app);
+
+export { vertexAI };
