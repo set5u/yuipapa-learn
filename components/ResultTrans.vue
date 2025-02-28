@@ -125,9 +125,14 @@
       ]"
     >
       <ul>
-        <li>
-          {{ alter.inc_dec_word || lang.inc_dec_word }}:{{
-            l["0_" + (alter.inc_dec_word || lang.inc_dec_word)]
+        <li>{{
+            l[
+              "0_" +
+                (alter.word_in_lang || lang.word_in_lang).replace(
+                  "{}",
+                  selectedLang
+                )
+            ]
           }}/
           {{
             l[

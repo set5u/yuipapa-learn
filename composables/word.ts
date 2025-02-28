@@ -73,7 +73,7 @@ export const translateSentence = async (
 
 /*
 {
-  ["0_" + (alter.inc_dec_word || lang.inc_dec_word)]:
+  ["0_" + ((alter.word_in_lang || lang.word_in_lang).replace("{}",selectedLang.value))]:
     Schema.string(),
   ["1_" +
   (alter.word_in_lang || lang.word_in_lang).replace(
@@ -88,9 +88,16 @@ export const translateSentence = async (
     }),
 }
 */
-export const mutateScores = (l: any[]) => {
+export const mutateScores = (l: any[], m: number = 1) => {
   for (const la of l) {
-    const wa = la["0_" + (alter.inc_dec_word || lang.inc_dec_word)];
+    const wa =
+      la[
+        "0_" +
+          (alter.word_in_lang || lang.word_in_lang).replace(
+            "{}",
+            selectedLang.value
+          )
+      ];
     const w =
       la[
         "1_" +
@@ -109,9 +116,9 @@ export const mutateScores = (l: any[]) => {
     }
     const i = la["3_" + (alter.inc_or_dec || lang.inc_or_dec)];
     if (i === (alter.inc || i === lang.inc)) {
-      wl[2][selectedLang.value][1]++;
-    } else {
-      wl[2][selectedLang.value][1]--;
+      wl[2][selectedLang.value][1] += m;
+    } else if (i === (alter.dec || i === lang.dec)) {
+      wl[2][selectedLang.value][1] -= m;
     }
   }
 };

@@ -8,8 +8,8 @@
   <div class="h1">
     {{
       (alter.transA2B || lang.transA2B)
-        .replace("{A}", nativeNameInLang)
-        .replace("{B}", B[4])
+        .replace("{A}", B[4])
+        .replace("{B}", nativeNameInLang)
     }}
   </div>
   <div class="h3">
@@ -38,6 +38,7 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
   import { getGenerativeModel, Schema } from "firebase/vertexai";
   import Home from "./Home.vue";
@@ -50,30 +51,8 @@
   const answer = ref("");
   const user = ref("");
   const considering = ref(false);
-  onMounted(async () => {
-    try {
-      sentence.value = await createSentence(
-        wordList
-          .slice(0, 3)
-          .map((v) => v[0])
-          .reverse()
-      );
-      wordList
-        .slice(0, 3)
-        .forEach(
-          (v) =>
-            v[2][selectedLang.value] && (v[2][selectedLang.value][1] += 0.1)
-        );
-      generating.value = false;
-      answer.value = await translateSentence(
-        sentence.value,
-        nativeNameInLang.value,
-        B[4]
-      );
-    } catch {
-      error.value = true;
-    }
-  });
+  const disabled = ref(false);
+  const json = ref<Record<string, any>>({});
   const onClick = async () => {
     if (!user.value) {
       return;
@@ -135,11 +114,8 @@
                 lang.comprehension_score_for_each_word)]: Schema.array({
                 items: Schema.object({
                   properties: {
-                    ["0_" +
-                    (alter.word_in_lang || lang.word_in_lang).replace(
-                      "{}",
-                      selectedLang.value
-                    )]: Schema.string(),
+                    ["0_" + ((alter.word_in_lang || lang.word_in_lang).replace("{}",selectedLang.value))]:
+                      Schema.string(),
                     ["1_" +
                     (alter.word_in_lang || lang.word_in_lang).replace(
                       "{}",
@@ -149,11 +125,7 @@
                       Schema.string(),
                     ["3_" + (alter.inc_or_dec || lang.inc_or_dec)]:
                       Schema.enumString({
-                        enum: [
-                          alter.inc || lang.inc,
-                          alter.dec || lang.dec,
-                          alter.remain || lang.remain,
-                        ],
+                        enum: [alter.inc || lang.inc, alter.dec || lang.dec,alter.remain||lang.remain],
                       }),
                   },
                 }),
@@ -179,9 +151,32 @@
         "3_" +
           (alter.comprehension_score_for_each_word ||
             lang.comprehension_score_for_each_word)
-      ]
+      ],
+      0.5
     );
   };
-  const disabled = ref(false);
-  const json = ref<Record<string, any>>({});
+  onMounted(async () => {
+    try {
+      answer.value = await createSentence(
+        wordList
+          .slice(0, 3)
+          .map((v) => v[0])
+          .reverse()
+      );
+      wordList
+        .slice(0, 3)
+        .forEach(
+          (v) =>
+            v[2][selectedLang.value] && (v[2][selectedLang.value][1] += 0.1)
+        );
+      sentence.value = await translateSentence(
+        answer.value,
+        nativeNameInLang.value,
+        B[4]
+      );
+      generating.value = false;
+    } catch {
+      error.value = true;
+    }
+  });
 </script>

@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
   import TransA2B from "./TransA2B.vue";
+  import TransB2A from "./TransB2A.vue";
 
   const generating = ref(false);
   const error = ref(false);
@@ -17,8 +18,8 @@
         (a[2][selectedLang.value]?.[1] || 0) -
         (b[2][selectedLang.value]?.[1] || 0)
     );
-    const idx = (Math.random() * 1) | 0;
-    is.value = [TransA2B][idx];
+    const idx = (Math.random() * 2) | 0;
+    is.value = [TransA2B, TransB2A][idx];
   };
   if (!wordList.length) {
     generating.value = true;

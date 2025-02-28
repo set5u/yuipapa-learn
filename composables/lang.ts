@@ -44,7 +44,7 @@ export const lang = {
   inc_or_dec: "Increase or decrease",
   inc: "Increase",
   dec: "Decrease",
-  inc_dec_word: "Word",
+  remain: "Remain",
   word_in_lang: "Word in {}",
   answer_in: "Please answer in {} as much as possible.",
   nothing: "Nothing here",
