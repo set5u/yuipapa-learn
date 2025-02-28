@@ -82,6 +82,7 @@ export const lang = {
   B2ATranslation: "B2A Translation",
   readingSummarize: "Reading summarize",
   listening: "Listening",
+  listenAgain: "Listen again",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")

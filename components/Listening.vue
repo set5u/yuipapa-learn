@@ -12,6 +12,12 @@
     {{ generating ? alter.generatingSentence || lang.generatingSentence : "" }}
   </div>
   <input class="form-control" v-model="user" :disabled @keyup.enter="onClick" />
+  <button
+    class="btn btn-outline-primary m-4"
+    @click="speak(selectedLang, sentence)"
+  >
+    {{ alter.listenAgain || lang.listenAgain }}
+  </button>
   <button class="btn btn-outline-primary m-4" :onClick :disabled>
     {{ alter.confirm || lang.confirm }}
   </button>
