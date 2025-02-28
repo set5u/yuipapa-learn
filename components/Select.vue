@@ -35,7 +35,7 @@
 
 <script lang="ts">
   export const modes = ref<string[]>(
-    JSON.parse(localStorage.getItem("modes") || "['A2B']")
+    JSON.parse(localStorage.getItem("modes") || '["A2B"]')
   );
   watch(modes, () => {
     if (!modes.value.length) {
