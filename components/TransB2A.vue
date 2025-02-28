@@ -167,7 +167,7 @@
         .slice(0, 3)
         .forEach(
           (v) =>
-            v[2][selectedLang.value] && (v[2][selectedLang.value][1] += 0.1)
+            v[2][selectedLang.value] && (v[2][selectedLang.value][1] += 0.2)
         );
       sentence.value = await translateSentence(
         answer.value,
