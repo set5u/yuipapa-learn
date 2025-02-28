@@ -32,6 +32,8 @@ export const lang = {
   considering: "Considering...",
   A2BConsider:
     "Here is the original sentence:\\n{S}\\nHere is the user's translation:\\n{D}\\nPlease correct the following:\\n\\n- Grammatical errors\\n- Words that are misspelled\\n- Different meanings\\n\\nFinally, increase or decrease the comprehension score for each word.",
+  listeningConsider:
+    "Here is the original sentence:\\n{S}\\nHere is the user listened:\\n{D}\\nPlease correct the following:\\n\\n- Grammatical errors\\n- Words that are misspelled\\n- Different meanings\\n\\nFinally, increase or decrease the comprehension score for each word.",
   grammatical_errors: "Grammatical errors",
   words_that_are_misspelled: "Words that are misspelled",
   different_meanings: "Different meanings",
@@ -79,6 +81,7 @@ export const lang = {
   A2BTranslation: "A2B Translation",
   B2ATranslation: "B2A Translation",
   readingSummarize: "Reading summarize",
+  listening: "Listening",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")

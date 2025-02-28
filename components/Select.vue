@@ -21,6 +21,15 @@
       alter.readingSummarize || lang.readingSummarize
     }}</label>
     <br />
+    <input
+      type="checkbox"
+      id="Listening"
+      value="Listening"
+      v-model="modes"
+      class="m-4"
+    />
+    <label for="B2A">{{ alter.listening || lang.listening }}</label>
+    <br />
   </div>
 </template>
 
