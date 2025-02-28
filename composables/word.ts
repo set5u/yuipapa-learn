@@ -113,6 +113,8 @@ export const mutateScores = (l: any[], m: number = 1) => {
     }
     if (!wl[2][selectedLang.value]) {
       wl[2][selectedLang.value] = [wa, 0];
+    } else {
+      wl[2][selectedLang.value][0] = wa;
     }
     const i = la["3_" + (alter.inc_or_dec || lang.inc_or_dec)];
     if (i === (alter.inc || i === lang.inc)) {
