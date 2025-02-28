@@ -30,6 +30,25 @@ export const lang = {
   generatingSentence: "Generating sentence...",
   answer: "Answer:",
   considering: "Considering...",
+  A2BConsider:
+    "Here is the original sentence:\\n{S}\\nHere is the user's translation:\\n{D}\\nPlease correct the following:\\n\\n- Grammatical errors\\n- Words that are misspelled\\n- Different meanings\\n\\nFinally, increase or decrease the comprehension score for each word.",
+  grammatical_errors: "Grammatical errors",
+  words_that_are_misspelled: "Words that are misspelled",
+  different_meanings: "Different meanings",
+  comprehension_score_for_each_word: "Comprehension score each word",
+  whats_wrong: "What's wrong",
+  why_its_wrong: "Why it's wrong",
+  how_to_fix_it: "How to fix it",
+  correct_spelling: "Correct spelling",
+  why_inc_or_dec: "Why increase or decrease",
+  inc_or_dec: "Increase or decrease",
+  inc: "Increase",
+  dec: "Decrease",
+  inc_dec_word: "Word",
+  word_in_lang: "Word in {}",
+  answer_in: "Please answer in {} as much as possible.",
+  nothing: "Nothing here",
+  next: "Next",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")
@@ -93,6 +112,6 @@ export const translate = async (l: string, n: string) => {
   const response = await result.response;
   const json = JSON.parse(response.text());
   for (const j in json) {
-    alter[vk[j] as keyof typeof lang] = json[j];
+    alter[vk[j.replaceAll("\n", "\\n")] as keyof typeof lang] = json[j];
   }
 };

@@ -70,3 +70,48 @@ export const translateSentence = async (
   const json = JSON.parse(response.text()) as string;
   return json;
 };
+
+/*
+{
+  ["0_" + (alter.inc_dec_word || lang.inc_dec_word)]:
+    Schema.string(),
+  ["1_" +
+  (alter.word_in_lang || lang.word_in_lang).replace(
+    "{}",
+    nativeNameInLang.value
+  )]: Schema.string(),
+  ["2_" + (alter.why_inc_or_dec || lang.why_inc_or_dec)]:
+    Schema.string(),
+  ["3_" + (alter.inc_or_dec || lang.inc_or_dec)]:
+    Schema.enumString({
+      enum: [alter.inc || lang.inc, alter.dec || lang.dec],
+    }),
+}
+*/
+export const mutateScores = (l: any[]) => {
+  for (const la of l) {
+    const wa = la["0_" + (alter.inc_dec_word || lang.inc_dec_word)];
+    const w =
+      la[
+        "1_" +
+          (alter.word_in_lang || lang.word_in_lang).replace(
+            "{}",
+            nativeNameInLang.value
+          )
+      ];
+    let wl = wordList.find((v) => v[0] === w);
+    if (!wl) {
+      wl = [w, native.value, {}];
+      wordList.unshift(wl);
+    }
+    if (!wl[2][selectedLang.value]) {
+      wl[2][selectedLang.value] = [wa, 0];
+    }
+    const i = la["3_" + (alter.inc_or_dec || lang.inc_or_dec)];
+    if (i === (alter.inc || i === lang.inc)) {
+      wl[2][selectedLang.value][1]++;
+    } else {
+      wl[2][selectedLang.value][1]--;
+    }
+  }
+};
