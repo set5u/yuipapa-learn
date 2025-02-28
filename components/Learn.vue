@@ -6,7 +6,8 @@
 </template>
 
 <script setup lang="ts">
-  import Story from "./Story.vue";
+  import { modes } from "./Select.vue";
+import Story from "./Story.vue";
   import TransA2B from "./TransA2B.vue";
   import TransB2A from "./TransB2A.vue";
 
@@ -19,8 +20,9 @@
         (a[2][selectedLang.value]?.[1] || 0) -
         (b[2][selectedLang.value]?.[1] || 0)
     );
-    const idx = (Math.random() * 3) | 0;
-    is.value = [TransA2B, TransB2A, Story][idx];
+    const modeL: Record<string, Component> = { A2B: TransA2B, B2A:TransB2A,ReadSumm:Story}
+    const idx = (Math.random() * modes.value.length) | 0;
+    is.value = modes.value.map(v=>modeL[v])[idx];
   };
   if (!wordList.length) {
     generating.value = true;

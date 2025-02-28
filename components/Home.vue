@@ -23,6 +23,13 @@
       </button>
     </div>
   </div>
+  <div class="my-4">
+    <div class="my-4">
+      <button class="btn btn-outline-primary" @click="is = Select">
+        {{ alter.modeSelect || lang.modeSelect }}
+      </button>
+    </div>
+  </div>
   <div>
     <div class="my-4 h4">
       {{ alter.word_list || lang.word_list }}
@@ -44,7 +51,8 @@
 <script setup lang="ts">
   import AddLang from "./AddLang.vue";
   import NativeLang from "./NativeLang.vue";
-  translateIfNeeded()
+  import Select from "./Select.vue";
+  translateIfNeeded();
   const is = inject<Ref<Component>>("is")!;
   const onNativeChange = () => {
     is.value = NativeLang;

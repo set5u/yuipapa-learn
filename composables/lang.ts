@@ -75,6 +75,10 @@ export const lang = {
   correctScore:
     "To summarize the following passage, the user made the correct choice. Increase or decrease the comprehension score of the word.",
   summarySelectedUser: "Summary selected by user",
+  modeSelect: "Mode Select",
+  A2BTranslation: "A2B Translation",
+  B2ATranslation: "B2A Translation",
+  readingSummarize: "Reading summarize",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")
