@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+  import Story from "./Story.vue";
   import TransA2B from "./TransA2B.vue";
   import TransB2A from "./TransB2A.vue";
 
@@ -18,8 +19,8 @@
         (a[2][selectedLang.value]?.[1] || 0) -
         (b[2][selectedLang.value]?.[1] || 0)
     );
-    const idx = (Math.random() * 2) | 0;
-    is.value = [TransA2B, TransB2A][idx];
+    const idx = (Math.random() * 3) | 0;
+    is.value = [TransA2B, TransB2A, Story][idx];
   };
   if (!wordList.length) {
     generating.value = true;

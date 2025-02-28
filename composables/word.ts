@@ -71,6 +71,127 @@ export const translateSentence = async (
   return json;
 };
 
+export const createStory = async (words: string[]) => {
+  const model = getGenerativeModel(vertexAI, {
+    model: "gemini-2.0-flash",
+    generationConfig: {
+      responseSchema: Schema.object({
+        properties: {
+          ["0_" + (alter.storyLoop || lang.storyLoop)]: Schema.object({
+            properties: {
+              ["0_" + (alter.firstConstruct || lang.firstConstruct)]:
+                Schema.array({ items: Schema.string() }),
+              ["1_" + (alter.secondImprove || lang.secondImprove)]:
+                Schema.array({ items: Schema.string() }),
+              ["2_" + (alter.thridDecide || lang.thridDecide)]: Schema.array({
+                items: Schema.string(),
+              }),
+            },
+          }),
+          ["1_" + (alter.onceTry || lang.onceTry)]: Schema.string(),
+          ["2_" + (alter.twiceRethink || lang.twiceRethink)]: Schema.array({
+            items: Schema.string(),
+          }),
+          ["3_" + (alter.draft || lang.draft)]: Schema.string(),
+          ["4_" + (alter.expand || lang.expand)]: Schema.array({
+            items: Schema.string(),
+          }),
+          ["5_" + (alter.finalText || lang.finalText)]: Schema.string(),
+          ["6_" +
+          (alter.translateInto || lang.translateInto).replace(
+            "{}",
+            selectedLang.value
+          )]: Schema.string(),
+        },
+      }),
+      responseMimeType: "application/json",
+    },
+  });
+  const prompt = (alter.createStory || lang.createStory) + words;
+  const result = await model.generateContentStream(prompt);
+  const response = await result.response;
+  const json = JSON.parse(response.text()) as Record<string, string>;
+  return [
+    json["5_" + (alter.finalText || lang.finalText)],
+    json[
+      "6_" +
+        (alter.translateInto || lang.translateInto).replace(
+          "{}",
+          selectedLang.value
+        )
+    ],
+  ];
+};
+
+export const generateStoryProblem = async (story: string[]) => {
+  const model = getGenerativeModel(vertexAI, {
+    model: "gemini-2.0-flash",
+    generationConfig: {
+      responseSchema: Schema.object({
+        properties: {
+          ["0_" + (alter.correctSummary || lang.correctSummary)]:
+            Schema.string(),
+          ["1_" + (alter.wrong1 || lang.wrong1)]: Schema.string(),
+          ["2_" + (alter.wrong2 || lang.wrong2)]: Schema.string(),
+          ["3_" + (alter.wrong3 || lang.wrong3)]: Schema.string(),
+          ["4_" +
+          (alter.translateInto || lang.translateInto).replace(
+            "{}",
+            selectedLang.value
+          )]: Schema.object({
+            properties: {
+              ["0_" + (alter.correctSummary || lang.correctSummary)]:
+                Schema.string(),
+              ["1_" + (alter.wrong1 || lang.wrong1)]: Schema.string(),
+              ["2_" + (alter.wrong2 || lang.wrong2)]: Schema.string(),
+              ["3_" + (alter.wrong3 || lang.wrong3)]: Schema.string(),
+            },
+          }),
+        },
+      }),
+      responseMimeType: "application/json",
+      temperature: 0,
+    },
+  });
+  const prompt = (alter.summarizeStory || lang.summarizeStory) + story[0];
+  const result = await model.generateContentStream(prompt);
+  const response = await result.response;
+  const prob1 = JSON.parse(response.text()) as Record<
+    string,
+    string | Record<string, string>
+  >;
+  const prob1E = prob1[
+    "4_" +
+      (alter.translateInto || lang.translateInto).replace(
+        "{}",
+        selectedLang.value
+      )
+  ] as Record<string, string>;
+  const prob1F: [string, string, number][] = [
+    [
+      prob1["0_" + (alter.correctSummary || lang.correctSummary)] as string,
+      prob1E["0_" + (alter.correctSummary || lang.correctSummary)],
+      0,
+    ],
+    [
+      prob1["1_" + (alter.wrong1 || lang.wrong1)] as string,
+      prob1E["1_" + (alter.wrong1 || lang.wrong1)],
+      1,
+    ],
+    [
+      prob1["2_" + (alter.wrong2 || lang.wrong2)] as string,
+      prob1E["2_" + (alter.wrong2 || lang.wrong2)],
+      2,
+    ],
+    [
+      prob1["3_" + (alter.wrong3 || lang.wrong3)] as string,
+      prob1E["3_" + (alter.wrong3 || lang.wrong3)],
+      3,
+    ],
+  ];
+  return prob1F;
+};
+
 /*
 {
   ["0_" + ((alter.word_in_lang || lang.word_in_lang).replace("{}",selectedLang.value))]:

@@ -16,8 +16,8 @@ export const lang = {
     "Please output the language code and language name of the following text:",
   delete: "Delete",
   learn: "Learn!",
-  gen_basic: "Please generate 100 basic {} words.",
-  gen_about: "Please generate 100 {} words relating to {0}.",
+  gen_basic: "Please generate 20 basic {} words.",
+  gen_about: "Please generate 20 {} words relating to {0}.",
   word_list: "Word list",
   next_page: "Next page",
   prev_page: "Previous page",
@@ -49,6 +49,32 @@ export const lang = {
   answer_in: "Please answer in {} as much as possible.",
   nothing: "Nothing here",
   next: "Next",
+  storyLoop:
+    "A loop that assembles the beginning, development, twist and conclusion",
+  firstConstruct: "First, try assembling it",
+  secondImprove: "Think about what you need to do to improve",
+  thridDecide: "Decide if you need to reconsider",
+  onceTry: "try writing it once",
+  twiceRethink:
+    "To improve what you have written, rethink the beginning, development, twist and conclusion",
+  draft: "Draft",
+  expand: "Places to expand the content",
+  finalText: "Final text",
+  translateInto: "Translate into {}",
+  createStory: "Create a story using following words:",
+  storyReading: "Read the story below and answer the questions",
+  summarizeStory:
+    "Please summarize this story. Each output should be about the same length.",
+  correctSummary: "Correct summary",
+  wrong1: "Summary of the opposite meanings",
+  wrong2: "Similar but incorrect summary",
+  wrong3: "Completely unrelated summary",
+  storySummarizeQuestion: "Choose the correct summary of this passage",
+  wrongScore:
+    "In the following summary of the passage, the user made an incorrect choice. Increase or decrease the comprehension score of the word.",
+  correctScore:
+    "To summarize the following passage, the user made the correct choice. Increase or decrease the comprehension score of the word.",
+  summarySelectedUser: "Summary selected by user",
 };
 export const alter: Partial<Record<keyof typeof lang, string>> = reactive(
   JSON.parse(localStorage.getItem("alter") ?? "{}")

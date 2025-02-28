@@ -1,19 +1,21 @@
 <template>
   <table class="table">
     <thead>
-      <td>
-        <button class="btn btn-outline-primary" @click="page > 0 && page--">
-          {{ alter.prev_page || lang.prev_page }}
-        </button>
-      </td>
-      <td>
-        <button
-          class="btn btn-outline-primary"
-          @click="page < wordList.length / 20 - 1 && page++"
-        >
-          {{ alter.next_page || lang.next_page }}
-        </button>
-      </td>
+      <tr>
+        <td>
+          <button class="btn btn-outline-primary" @click="page > 0 && page--">
+            {{ alter.prev_page || lang.prev_page }}
+          </button>
+        </td>
+        <td>
+          <button
+            class="btn btn-outline-primary"
+            @click="page < wordList.length / 20 - 1 && page++"
+          >
+            {{ alter.next_page || lang.next_page }}
+          </button>
+        </td>
+      </tr>
     </thead>
     <tbody>
       <tr
